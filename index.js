@@ -100,7 +100,8 @@ async function voteForServer(serverId, nickname, token) {
       goto(url: "https://minecraftpocket-servers.com/server/${serverId}/vote/") {
         status
       }
-      type(text: "${nickname}", selector: "#nickname") { time }
+      waitForForm: waitForSelector( selector: "#nickname", visible: true ) { time }
+      type(text: "${nickname}", selector: "#nickname", timeout: 1000.0 ) { time }
       click(selector: "#accept") { time }
       verify(type: cloudflare) { solved }
       waitForTimeout(time: 1000.0) { time }
@@ -129,9 +130,11 @@ async function voteForServer(serverId, nickname, token) {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const data = await response.json();
-    console.log(data);
-    console.log(`✅ Vote success for ${nickname} in server ${serverId}.`);
+    const { type } = await response.json();
+
+    console.log(
+      `✅ Vote success for ${nickname} in server ${serverId}. Typing time: ${type}`,
+    );
     return true;
   } catch (error) {
     console.error(
