@@ -95,7 +95,7 @@ async function voteForServer(serverId, nickname, token) {
   const query = `
     mutation VoteServer {
       reject(type: [image, media]) {
-        enable
+        enabled
       }
       goto(url: "https://minecraftpocket-servers.com/server/${serverId}/vote/") {
         status
