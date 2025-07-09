@@ -1,0 +1,6 @@
+.env
+node_modules/
+credentials.json
+test.js
+utils/db_functions.js
+cli.js
