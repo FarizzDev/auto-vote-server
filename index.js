@@ -130,10 +130,10 @@ async function voteForServer(serverId, nickname, token) {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const { type } = await response.json();
+    const { data } = await response.json();
 
     console.log(
-      `✅ Vote success for ${nickname} in server ${serverId}. Typing time: ${type}`,
+      `✅ Vote success for ${nickname} in server ${serverId}. Typing time: ${data.type.time}`,
     );
     return true;
   } catch (error) {
