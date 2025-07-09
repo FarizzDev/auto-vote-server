@@ -4,6 +4,7 @@ on:
   schedule:
     # 5:00 WIB
     - cron: "0 22 * * *"
+  workflow_dispatch:
 
 jobs:
   run-node-script:
