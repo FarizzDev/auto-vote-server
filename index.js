@@ -6,7 +6,7 @@ const { decrypt } = require("./utils/encryption.js");
 const BROWSERLESS_ENDPOINT =
   "https://production-sfo.browserless.io/chromium/bql";
 const PROXY_STRING = "&proxy=residential&proxyCountry=us";
-const OPTIONS_STRING = "&timeout=15000&blockAds=true";
+const OPTIONS_STRING = "&blockAds=true";
 
 // --- TOKEN MANAGEMENT ---
 const TokenManager = {
