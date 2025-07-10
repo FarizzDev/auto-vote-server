@@ -1,6 +1,6 @@
 const crypto = require("crypto");
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
 
 const key = Buffer.from(process.env.SECRET_KEY);
@@ -39,5 +39,5 @@ function decrypt(encryptedBase64) {
 
 module.exports = {
   encrypt,
-  decrypt
-}
+  decrypt,
+};

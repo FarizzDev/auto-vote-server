@@ -2,8 +2,8 @@ name: Vote Servers
 
 on:
   schedule:
-    # 5:00 WIB
-    - cron: "0 22 * * *"
+    # 12:00 WIB
+    - cron: "0 5 * * *"
   workflow_dispatch:
 
 jobs:
