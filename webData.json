@@ -1,0 +1,14 @@
+{
+  "MPS": {
+    "URL": "https://minecraftpocket-servers.com/server/{serverId}/vote",
+    "nicknameSelector": "#nickname",
+    "acceptSelector": "#accept",
+    "submitSelector": "a[href^='javascript:document.vote_form.submit()']"
+  },
+  "MMP": {
+    "URL": "https://minecraft-mp.com/server/{serverId}/vote",
+    "nicknameSelector": "#nickname",
+    "acceptSelector": "#accept",
+    "submitSelector": "button[form^='vote_form']"
+  }
+}
