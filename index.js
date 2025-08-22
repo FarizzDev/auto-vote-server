@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 const db = require("./firestore.js");
 const { decrypt } = require("./utils/encryption.js");
+const webData = require("./webData.json");
 
 // --- CONFIGURATION ---
 const BROWSERLESS_ENDPOINT =
@@ -91,21 +92,25 @@ async function loadAllUsers() {
  * @param {string} token - Browserless Token
  * @returns {boolean} - true if success, false if token exhaust/too many request.
  */
-async function voteForServer(serverId, nickname, token) {
+async function voteForServer(
+  { URL, nicknameSelector, acceptSelector, submitSelector },
+  { serverId, nickname },
+  token,
+) {
   const query = `
     mutation VoteServer {
       reject(type: [image, media]) {
         enabled
       }
-      goto(url: "https://minecraftpocket-servers.com/server/${serverId}/vote/") {
+      goto(url: "${URL.replace("{serverId}", serverId)}") {
         status
       }
-      waitForForm: waitForSelector( selector: "#nickname", visible: true ) { time }
-      type(text: "${nickname}", selector: "#nickname", timeout: 1000.0 ) { time }
-      click(selector: "#accept") { time }
+      waitForForm: waitForSelector( selector: "${nicknameSelector}", visible: true ) { time }
+      type(text: "${nickname}", selector: "${nicknameSelector}", timeout: 1000.0 ) { time }
+      click(selector: "${acceptSelector}") { time }
       verify(type: cloudflare) { solved }
       waitForTimeout(time: 1000.0) { time }
-      submit: click(selector: "a[href^='javascript:document.vote_form.submit()']") { time }
+      submit: click(selector: "${submitSelector}") { time }
     }
   `;
 
@@ -173,8 +178,11 @@ async function main() {
         );
 
         voteSuccess = await voteForServer(
-          server.server_id,
-          user.nickname,
+          webData[server.platformId],
+          {
+            serverId: server.server_id,
+            nickname: user.nickname,
+          },
           currentToken,
         );
 
